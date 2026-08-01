@@ -1,4 +1,4 @@
-# zsh-toolbox
+# Zsh Toolbox
 
 A small, growing collection of zsh aliases and functions for keeping a git-heavy workflow fast and tidy — quick clones, branch cleanup, and multi-repo syncing.
 
@@ -6,28 +6,27 @@ A small, growing collection of zsh aliases and functions for keeping a git-heavy
 
 ### Aliases (`aliases/git.zsh`)
 
-| Name | Description |
-| --- | --- |
-| `gpull` | Pull the current repo's default branch (`main`/`master`/etc.) from origin |
-| `gprune` | Prune stale remote-tracking branches (`git fetch --prune`) |
-| `gbranches` | List local branches with tracking/ahead-behind info (`git branch -vv`) |
-| `grefresh` | Runs `gpull`, `gprune`, and `gbranches` in sequence |
+| Name        | Description                                                               |
+| ----------- | ------------------------------------------------------------------------- |
+| `gpull`     | Pull the current repo's default branch (`main`/`master`/etc.) from origin |
+| `gprune`    | Prune stale remote-tracking branches (`git fetch --prune`)                |
+| `gbranches` | List local branches with tracking/ahead-behind info (`git branch -vv`)    |
+| `grefresh`  | Runs `gpull`, `gprune`, and `gbranches` in sequence                       |
 
 ### Functions (`functions/git.zsh`, `functions/utils.zsh`)
 
-| Name | Description |
-| --- | --- |
-| `bclean` | Switch to the default branch and delete the branch you were just on |
-| `rpsync <prefix> [--safe]` | Sync all repos under `$HOME/code` matching `<prefix>-*`. With `--safe`, only syncs repos on their default branch with no other local branches, and prints a summary of anything skipped |
-| `qclone <org> <repo> [--https\|--ssh]` | Clone a GitHub repo without typing the full URL. Protocol defaults to `$ZSH_TOOLBOX_CLONE_PROTOCOL` (see [Configuration](#configuration)), overridable per-call |
-
-`rpsync` and `bclean` assume repos live under `$HOME/code`.
+| Name                                   | Description                                                                                                                                                                                                                                                                                                                              |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bclean [--force]`                     | Switch to the default branch and delete the branch you were just on. Uses a safe delete by default (refuses if unmerged); `--force` force-deletes instead — useful after a squash/rebase merge, which git can't detect as merged                                                                                                         |
+| `rpsync [--prefix <prefix>] [--safe]`  | Sync repos under `$ZSH_TOOLBOX_REPOS_DIR` (or the current directory, see [Configuration](#configuration)) — everything by default, or only `<prefix>-*` repos with `--prefix`. With `--safe`, only syncs repos on their default branch with no other local branches and no uncommitted changes, and prints a summary of anything skipped |
+| `qclone <org> <repo> [--https\|--ssh]` | Clone a GitHub repo without typing the full URL. Protocol defaults to `$ZSH_TOOLBOX_CLONE_PROTOCOL` (see [Configuration](#configuration)), overridable per-call                                                                                                                                                                          |
 
 ## Configuration
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `ZSH_TOOLBOX_CLONE_PROTOCOL` | `ssh` | Protocol `qclone` uses when unset. Set to `https` in your `.zshrc` if you prefer HTTPS (e.g. on a machine without an SSH key configured for GitHub), or override per-call with `qclone <org> <repo> --https` / `--ssh`. |
+| Variable                     | Default           | Description                                                                                                                                                                                                             |
+| ---------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ZSH_TOOLBOX_CLONE_PROTOCOL` | `ssh`             | Protocol `qclone` uses when unset. Set to `https` in your `.zshrc` if you prefer HTTPS (e.g. on a machine without an SSH key configured for GitHub), or override per-call with `qclone <org> <repo> --https` / `--ssh`. |
+| `ZSH_TOOLBOX_REPOS_DIR`      | current directory | Directory `rpsync` scans for repos when unset. Set it in your `.zshrc` to always point at your repos folder (e.g. `~/code`) regardless of where you run `rpsync` from.                                                  |
 
 ## Installation
 
