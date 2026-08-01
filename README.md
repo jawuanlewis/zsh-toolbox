@@ -69,6 +69,18 @@ source ~/.zsh-toolbox/zsh-toolbox.plugin.zsh
 
 Everything is split into small, self-contained files under `aliases/` and `functions/` — grab only the ones you want and drop them into your own dotfiles. Functions in `functions/git.zsh` depend on the `_zsh_toolbox_default_branch` helper in `functions/_shared.zsh`, so bring that along too if you cherry-pick.
 
+## Updating
+
+None of the install methods below auto-update — each needs an explicit pull, via whichever command matches how you installed it:
+
+| Install method | Update command |
+| --- | --- |
+| zinit | `zinit update jawuanlewis/zsh-toolbox` |
+| antidote | `antidote update` |
+| oh-my-zsh custom plugin | `cd "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-toolbox" && git pull` |
+| Manual clone | `cd ~/.zsh-toolbox && git pull` (or just run `grefresh` from inside that directory) |
+| Copy-paste | No update path — the copied files aren't linked to this repo, so re-copy manually |
+
 ## Naming convention
 
 Aliases and functions in a given domain share a short prefix to avoid clobbering other tools you may have installed (e.g. `g` for git — `gpull`, `gprune`, `gbranches`, `grefresh`). New categories added later (docker, npm, etc.) should follow the same pattern.
