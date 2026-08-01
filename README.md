@@ -19,9 +19,15 @@ A small, growing collection of zsh aliases and functions for keeping a git-heavy
 | --- | --- |
 | `bclean` | Switch to the default branch and delete the branch you were just on |
 | `rpsync <prefix> [--safe]` | Sync all repos under `$HOME/code` matching `<prefix>-*`. With `--safe`, only syncs repos on their default branch with no other local branches, and prints a summary of anything skipped |
-| `qclone <org> <repo>` | Clone `git@github.com:<org>/<repo>.git` without typing the full URL |
+| `qclone <org> <repo> [--https\|--ssh]` | Clone a GitHub repo without typing the full URL. Protocol defaults to `$ZSH_TOOLBOX_CLONE_PROTOCOL` (see [Configuration](#configuration)), overridable per-call |
 
-All functions assume repos live under `$HOME/code` and that you have SSH access configured for GitHub.
+`rpsync` and `bclean` assume repos live under `$HOME/code`.
+
+## Configuration
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `ZSH_TOOLBOX_CLONE_PROTOCOL` | `ssh` | Protocol `qclone` uses when unset. Set to `https` in your `.zshrc` if you prefer HTTPS (e.g. on a machine without an SSH key configured for GitHub), or override per-call with `qclone <org> <repo> --https` / `--ssh`. |
 
 ## Installation
 
@@ -67,6 +73,18 @@ Everything is split into small, self-contained files under `aliases/` and `funct
 ## Naming convention
 
 Aliases and functions in a given domain share a short prefix to avoid clobbering other tools you may have installed (e.g. `g` for git — `gpull`, `gprune`, `gbranches`, `grefresh`). New categories added later (docker, npm, etc.) should follow the same pattern.
+
+## Development
+
+Code is formatted with [`shfmt`](https://github.com/mvdan/sh) (it understands zsh syntax, not just bash/POSIX):
+
+```bash
+brew install shfmt
+shfmt -d .   # preview formatting changes
+shfmt -w .   # apply them
+```
+
+Indent style (2 spaces) is set in [`.editorconfig`](.editorconfig), which `shfmt` reads automatically.
 
 ## License
 

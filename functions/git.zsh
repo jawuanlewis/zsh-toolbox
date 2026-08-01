@@ -75,15 +75,15 @@ rpsync() {
 
   echo "\n✅ Done syncing ${prefix}-* repos."
 
-  if $safe_mode && (( ${#skipped_not_default[@]} > 0 || ${#skipped_extra_branches[@]} > 0 )); then
+  if $safe_mode && ((${#skipped_not_default[@]} > 0 || ${#skipped_extra_branches[@]} > 0)); then
     echo "\n\033[1;35m── Skipped Summary ──\033[0m"
-    if (( ${#skipped_not_default[@]} > 0 )); then
+    if ((${#skipped_not_default[@]} > 0)); then
       echo "Not on default branch:"
       for r in "${skipped_not_default[@]}"; do
         echo "  - $r"
       done
     fi
-    if (( ${#skipped_extra_branches[@]} > 0 )); then
+    if ((${#skipped_extra_branches[@]} > 0)); then
       echo "Has extra local branches:"
       for r in "${skipped_extra_branches[@]}"; do
         echo "  - $r"
