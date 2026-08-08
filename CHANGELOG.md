@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - README "Updating" section documenting how to pull updates for each install method
 - CI: GitHub Actions workflow running `shfmt -d .` on PRs and pushes to `main`
+- CI: `dprint check` (markdown formatting) added to the same workflow, with `dprint.json` config
 
 ## [0.1.0] - 2026-08-01
 

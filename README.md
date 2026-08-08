@@ -73,13 +73,13 @@ Everything is split into small, self-contained files under `aliases/` and `funct
 
 None of the install methods below auto-update — each needs an explicit pull, via whichever command matches how you installed it:
 
-| Install method | Update command |
-| --- | --- |
-| zinit | `zinit update jawuanlewis/zsh-toolbox` |
-| antidote | `antidote update` |
-| oh-my-zsh custom plugin | `cd "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-toolbox" && git pull` |
-| Manual clone | `cd ~/.zsh-toolbox && git pull` (or just run `grefresh` from inside that directory) |
-| Copy-paste | No update path — the copied files aren't linked to this repo, so re-copy manually |
+| Install method          | Update command                                                                      |
+| ----------------------- | ----------------------------------------------------------------------------------- |
+| zinit                   | `zinit update jawuanlewis/zsh-toolbox`                                              |
+| antidote                | `antidote update`                                                                   |
+| oh-my-zsh custom plugin | `cd "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-toolbox" && git pull`                   |
+| Manual clone            | `cd ~/.zsh-toolbox && git pull` (or just run `grefresh` from inside that directory) |
+| Copy-paste              | No update path — the copied files aren't linked to this repo, so re-copy manually   |
 
 ## Naming convention
 

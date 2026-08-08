@@ -13,7 +13,8 @@ A public, personal-portfolio zsh plugin: git workflow aliases/functions, designe
 - **Naming**: public aliases/functions in a domain share a short prefix to avoid clobbering the user's other tools (`g` for git — `gpull`, `gbranches`, etc.). Internal helpers are prefixed `_zsh_toolbox_`. Follow this pattern for any new domain (e.g. `d` for docker).
 - **Configuration**: anything that varies per user/machine is an env var namespaced `ZSH_TOOLBOX_*` (e.g. `ZSH_TOOLBOX_CLONE_PROTOCOL`, `ZSH_TOOLBOX_REPOS_DIR`), always with a sane fallback — never require configuration just to get default behavior.
 - **Safety default**: anything that could discard local work defaults to the safe/conservative behavior, with an explicit opt-in flag for the destructive alternative (see `bclean` — safe-delete by default, `--force` to override; `rpsync --safe` skips repos with uncommitted changes or unexpected branches). Keep this asymmetry when adding new destructive operations.
-- **Formatting**: `shfmt` (not `shellcheck` — it doesn't understand zsh syntax and false-positives on things like extended glob qualifiers). `.zsh` extension auto-selects zsh dialect; indent width comes from `.editorconfig`. Run `shfmt -w .` before committing; CI enforces this via `shfmt -d .` on PRs and pushes to `main` (see `.github/workflows/format-check.yml`).
+- **Formatting (shell)**: `shfmt` (not `shellcheck` — it doesn't understand zsh syntax and false-positives on things like extended glob qualifiers). `.zsh` extension auto-selects zsh dialect; indent width comes from `.editorconfig`. Run `shfmt -w .` before committing; CI enforces this via `shfmt -d .` on PRs and pushes to `main` (see `.github/workflows/format-check.yml`).
+- **Formatting (markdown)**: `dprint` with the markdown plugin (config in `dprint.json`), chosen over Prettier to avoid adding a Node toolchain to a repo that otherwise has none — dprint ships as a single static binary, same install pattern as `shfmt` in CI. Run `dprint fmt` before committing; CI enforces this via `dprint check` in the same `format-check.yml` workflow.
 
 ## Known gotcha
 
@@ -22,9 +23,11 @@ A public, personal-portfolio zsh plugin: git workflow aliases/functions, designe
 ## Testing
 
 No automated test suite. Changes are verified manually before every commit:
+
 1. `zsh -n <file>` per changed file (syntax)
-2. `shfmt -d .` (formatting, should be empty)
-3. Functional smoke test against throwaway git repos in a temp dir (stub `grefresh`/`git` where useful to avoid real network calls)
+2. `shfmt -d .` (shell formatting, should be empty)
+3. `dprint check` (markdown formatting, should be empty)
+4. Functional smoke test against throwaway git repos in a temp dir (stub `grefresh`/`git` where useful to avoid real network calls)
 
 ## Release process
 
@@ -36,4 +39,4 @@ No automated test suite. Changes are verified manually before every commit:
 ## Repo facts
 
 - GitHub: `jawuanlewis/zsh-toolbox`, public, MIT licensed.
-- CI: GitHub Actions `format-check` workflow runs `shfmt -d .` on PRs/pushes to `main`. shfmt is installed from a pinned release binary (v3.13.1) rather than a marketplace action, since none of the common ones are officially maintained by mvdan/sh.
+- CI: GitHub Actions `format-check` workflow runs two jobs on PRs/pushes to `main` — `shfmt -d .` (shell) and `dprint check` (markdown). Both tools install from pinned release binaries rather than marketplace actions, since neither is officially maintained by its upstream (mvdan/sh, dprint/dprint).
