@@ -13,7 +13,7 @@ A public, personal-portfolio zsh plugin: git workflow aliases/functions, designe
 - **Naming**: public aliases/functions in a domain share a short prefix to avoid clobbering the user's other tools (`g` for git — `gpull`, `gbranches`, etc.). Internal helpers are prefixed `_zsh_toolbox_`. Follow this pattern for any new domain (e.g. `d` for docker).
 - **Configuration**: anything that varies per user/machine is an env var namespaced `ZSH_TOOLBOX_*` (e.g. `ZSH_TOOLBOX_CLONE_PROTOCOL`, `ZSH_TOOLBOX_REPOS_DIR`), always with a sane fallback — never require configuration just to get default behavior.
 - **Safety default**: anything that could discard local work defaults to the safe/conservative behavior, with an explicit opt-in flag for the destructive alternative (see `bclean` — safe-delete by default, `--force` to override; `rpsync --safe` skips repos with uncommitted changes or unexpected branches). Keep this asymmetry when adding new destructive operations.
-- **Formatting**: `shfmt` (not `shellcheck` — it doesn't understand zsh syntax and false-positives on things like extended glob qualifiers). `.zsh` extension auto-selects zsh dialect; indent width comes from `.editorconfig`. Run `shfmt -w .` before committing; CI doesn't enforce this yet.
+- **Formatting**: `shfmt` (not `shellcheck` — it doesn't understand zsh syntax and false-positives on things like extended glob qualifiers). `.zsh` extension auto-selects zsh dialect; indent width comes from `.editorconfig`. Run `shfmt -w .` before committing; CI enforces this via `shfmt -d .` on PRs and pushes to `main` (see `.github/workflows/format-check.yml`).
 
 ## Known gotcha
 
@@ -36,4 +36,4 @@ No automated test suite. Changes are verified manually before every commit:
 ## Repo facts
 
 - GitHub: `jawuanlewis/zsh-toolbox`, public, MIT licensed.
-- No CI configured yet (a `shfmt -d .` format-check workflow was discussed as a future addition, not yet implemented).
+- CI: GitHub Actions `format-check` workflow runs `shfmt -d .` on PRs/pushes to `main`. shfmt is installed from a pinned release binary (v3.13.1) rather than a marketplace action, since none of the common ones are officially maintained by mvdan/sh.
