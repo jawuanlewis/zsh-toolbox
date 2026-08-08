@@ -19,3 +19,17 @@ jobs:
 
       - name: Check formatting
         run: shfmt -d .
+
+  dprint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dprint
+        run: |
+          curl -sSL "https://github.com/dprint/dprint/releases/download/0.55.2/dprint-x86_64-unknown-linux-gnu.zip" -o dprint.zip
+          unzip -o dprint.zip -d /usr/local/bin
+          rm dprint.zip
+
+      - name: Check formatting
+        run: dprint check
