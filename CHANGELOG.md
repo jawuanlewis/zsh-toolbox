@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-15
+
 ### Added
 
+- `zthelp [git|utils]` — print available aliases/functions grouped by domain, without leaving the terminal for the README
 - README "Updating" section documenting how to pull updates for each install method
 - CI: GitHub Actions workflow running `shfmt -d .` on PRs and pushes to `main`
 - CI: `dprint check` (markdown formatting) added to the same workflow, with `dprint.json` config
