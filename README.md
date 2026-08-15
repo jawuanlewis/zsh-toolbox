@@ -4,6 +4,9 @@ A small, growing collection of zsh aliases and functions for keeping a git-heavy
 
 ## What's included
 
+Run `zthelp` (or `zthelp git` / `zthelp utils` to filter by domain) for a quick in-terminal
+reference to everything below — handy so you don't have to come back to this README.
+
 ### Aliases (`aliases/git.zsh`)
 
 | Name        | Description                                                               |
@@ -20,6 +23,12 @@ A small, growing collection of zsh aliases and functions for keeping a git-heavy
 | `bclean [--force]`                     | Switch to the default branch and delete the branch you were just on. Uses a safe delete by default (refuses if unmerged); `--force` force-deletes instead — useful after a squash/rebase merge, which git can't detect as merged                                                                                                         |
 | `rpsync [--prefix <prefix>] [--safe]`  | Sync repos under `$ZSH_TOOLBOX_REPOS_DIR` (or the current directory, see [Configuration](#configuration)) — everything by default, or only `<prefix>-*` repos with `--prefix`. With `--safe`, only syncs repos on their default branch with no other local branches and no uncommitted changes, and prints a summary of anything skipped |
 | `qclone <org> <repo> [--https\|--ssh]` | Clone a GitHub repo without typing the full URL. Protocol defaults to `$ZSH_TOOLBOX_CLONE_PROTOCOL` (see [Configuration](#configuration)), overridable per-call                                                                                                                                                                          |
+
+### Meta (`functions/help.zsh`)
+
+| Name                  | Description                                                                          |
+| --------------------- | ------------------------------------------------------------------------------------ |
+| `zthelp [git\|utils]` | Print available aliases/functions grouped by domain; optionally filter to one domain |
 
 ## Configuration
 
@@ -84,6 +93,8 @@ None of the install methods below auto-update — each needs an explicit pull, v
 ## Naming convention
 
 Aliases and functions in a given domain share a short prefix to avoid clobbering other tools you may have installed (e.g. `g` for git — `gpull`, `gprune`, `gbranches`, `grefresh`). New categories added later (docker, npm, etc.) should follow the same pattern.
+
+Cross-domain meta commands (like `zthelp`) aren't tied to one domain, so they use a `zt` prefix instead.
 
 ## Development
 
